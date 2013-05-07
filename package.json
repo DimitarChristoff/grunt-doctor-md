@@ -1,6 +1,6 @@
 {
   "name": "doctor-ace",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A doctor-md extension that adds runable code blocks to built documentation",
   "main": "index.js",
   "scripts": {
