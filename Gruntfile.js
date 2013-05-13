@@ -17,11 +17,8 @@ module.exports = function(grunt){
 			docs: ['<%=output%>']
 		},
 
-
 		// shared between tasks
 		output: 'docs',
-
-		name: 'bob1',
 
 		doctor: {
 
@@ -48,8 +45,8 @@ module.exports = function(grunt){
 				engine: 'handlebars',
 				flatten: false,
 				name: '<%= name %>',
-				jsIncludes: ['foo.js'],
-				cssIncludes: ['style.css']
+				jsIncludes: [],
+				cssIncludes: []
 			},
 			doctor: {
 				files: {
@@ -64,7 +61,7 @@ module.exports = function(grunt){
 	grunt.loadTasks('tasks');
 
 	// These plugins provide necessary tasks.
-	grunt.loadNpmTasks('grunt-contrib-jshint');
+	// grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('assemble');
 

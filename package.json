@@ -1,15 +1,15 @@
 {
-  "name": "grunt-doctor",
+  "name": "grunt-doctor-md",
   "description": "Grunt task for doctor-md",
-  "version": "0.1.0",
-  "homepage": "https://github.com/DimitarChristoff/grunt-doctor",
+  "version": "0.0.1",
+  "homepage": "https://github.com/DimitarChristoff/grunt-doctor-md",
   "author": {
     "name": "DimitarChristoff",
     "email": "christoff@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/DimitarChristoff/grunt-doctor.git"
+    "url": "git://github.com/DimitarChristoff/grunt-doctor-md.git"
   },
   "main": "Gruntfile.js",
   "engines": {
@@ -31,7 +31,6 @@
     "doctor-md"
   ],
   "dependencies": {
-    "doctor-md": "~0.1.11",
-    "mm": "0.0.1"
+    "doctor-md": "~0.1.11"
   }
 }
