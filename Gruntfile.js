@@ -8,66 +8,71 @@
 
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function(grunt){
 
-  // Project configuration.
-  grunt.initConfig({
-    jshint: {
-      all: [
-        'Gruntfile.js',
-        'tasks/*.js',
-        '<%= nodeunit.tests %>',
-      ],
-      options: {
-        jshintrc: '.jshintrc',
-      },
-    },
+	// Project configuration.
+	grunt.initConfig({
+		// Before generating any new files, remove any previously-created files.
+		clean: {
+			docs: ['<%=output%>']
+		},
 
-    // Before generating any new files, remove any previously-created files.
-    clean: {
-      tests: ['tmp'],
-    },
 
-    // Configuration to be run (and then tested).
-    doctor: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123'],
-        },
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!',
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123'],
-        },
-      },
-    },
+		// shared between tasks
+		output: 'docs',
 
-    // Unit tests.
-    nodeunit: {
-      tests: ['test/*_test.js'],
-    },
+		name: 'bob1',
 
-  });
+		doctor: {
 
-  // Actually load this plugin's task(s).
-  grunt.loadTasks('tasks');
+			default_options: {
 
-  // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+				options: {
+					source: 'README.md',
+					output: '<%= output%>',
+					title: 'My Project',
+					logo: 'images/logo.png',
+					jsIncludes: ['<%= output%>'],
+					cssIncludes: []
+				},
+				files: {
+					'<%= output%>/index.html': './README.md'
+				}
 
-  // Whenever the "test" task is run, first clean the "tmp" dir, then run this
-  // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'doctor', 'nodeunit']);
+			}
 
-  // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'test']);
+		},
+
+		assemble: {
+			options: {
+				engine: 'handlebars',
+				flatten: false,
+				name: '<%= name %>',
+				jsIncludes: ['foo.js'],
+				cssIncludes: ['style.css']
+			},
+			doctor: {
+				files: {
+					'docs/js/blank.html': ['node_modules/doctor-md/tpl/blank.hbs']
+				}
+			}
+		}
+
+	});
+
+	// Actually load this plugin's task(s).
+	grunt.loadTasks('tasks');
+
+	// These plugins provide necessary tasks.
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('assemble');
+
+	// Whenever the "test" task is run, first clean the "tmp" dir, then run this
+	// plugin's task(s), then test the result.
+	grunt.registerTask('test', ['doctor', 'assemble']);
+
+	// By default, lint and run all tests.
+	grunt.registerTask('default', ['clean','doctor','assemble']);
 
 };

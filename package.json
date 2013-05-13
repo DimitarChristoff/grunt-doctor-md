@@ -19,15 +19,18 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.1.1",
     "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-nodeunit": "~0.1.2",
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "assemble": "~0.3.76"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"
   },
   "keywords": [
     "doctor-md"
-  ]
+  ],
+  "dependencies": {
+    "doctor-md": "~0.1.11",
+    "mm": "0.0.1"
+  }
 }

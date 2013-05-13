@@ -8,43 +8,67 @@
 
 'use strict';
 
-module.exports = function(grunt) {
+var doc = require('doctor-md');
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+module.exports = function(grunt, init){
 
-  grunt.registerMultiTask('doctor', 'Your task description goes here.', function() {
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
+	// Please see the Grunt documentation for more information regarding task
+	// creation: http://gruntjs.com/creating-tasks
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
-      // Concat specified files.
-      var src = f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+	grunt.registerMultiTask('foo', 'Generate HTML docs from MARKDOWN.', function(){
 
-      // Handle options.
-      src += options.punctuation;
+		// Load npm plugins to provide necessary tasks.
+		var done = this.async();
 
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
+		grunt.verbose.writeln(('Running ' + this.name + ' - ' + this.target).cyan);
 
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
-    });
-  });
+		// require assemble
+		var assemble = require('assemble');
+
+		// initalize assemble with the currently running task
+		assemble = assemble.init(this);
+
+		// let's see what assemble has now
+		grunt.verbose.writeln(require('util').inspect(assemble));
+		grunt.verbose.writeln('');
+
+		// you can see there are some defaults that assemble sets up
+		// add the steps you want to execute
+
+		// add a custom string property to the assemble object
+		// now run build
+		assemble.build(function(err, results) {
+			grunt.log.writeln('build finished');
+			done();
+		});
+
+
+	});
+
+	grunt.registerMultiTask('doctor', 'build stuff', function(){
+		// Merge task-specific and/or target-specific options with these defaults.
+		var options = this.options(),
+			done = this.async(),
+			files = this.files;
+
+		// Iterate over all specified file groups.
+		files.forEach(function(f, i){
+			options.source = f.src[0];
+			doc.process(options);
+
+			doc.on('done', function(){
+				if (i === files.length-1){
+					done();
+				}
+			});
+
+			// Write the destination file.
+			// grunt.file.write(f.dest, src);
+
+			// Print a success message.
+			// grunt.log.writeln('File "' + f.dest + '" created.');
+		});
+
+	})
 
 };
