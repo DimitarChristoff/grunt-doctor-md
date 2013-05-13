@@ -1,0 +1,15 @@
+{
+  "name": "doctor-ace",
+  "version": "0.0.4",
+  "description": "A doctor-md extension that adds runable code blocks to built documentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DimitarChristoff/doctor"
+  },
+  "author": "Dimitar Christoff <christoff@gmail.com> (https://twitter.com/D_mitar)",
+  "license": "MIT"
+}
