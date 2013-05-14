@@ -13,8 +13,8 @@ var doc = require('doctor-md');
 module.exports = function(grunt, init){
 
 	// ensure these are loaded so it works as standalone
-	grunt.loadNpmTasks('assemble');
-	grunt.loadNpmTasks('grunt-contrib-copy');
+	require('assemble/tasks/assemble')(grunt);
+	require('grunt-contrib-copy/tasks/copy')(grunt);
 
 	grunt.registerMultiTask('doctor', 'build stuff', function(){
 		var options = this.options(),
