@@ -1,6 +1,6 @@
 /*
- * grunt-doctor
- * https://github.com/dchristoff/grunt-doctor
+ * grunt-doctor-md
+ * https://github.com/DimitarChristoff/grunt-doctor-md
  *
  * Copyright (c) 2013 DimitarChristoff
  * Licensed under the MIT license.

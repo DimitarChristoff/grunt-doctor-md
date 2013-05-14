@@ -1,5 +1,5 @@
 /*
- * grunt-doctor
+ * grunt-doctor-md
  * https://github.com/DimitarChristoff/grunt-doctor-md
  *
  * Copyright (c) 2013 DimitarChristoff
