@@ -12,6 +12,10 @@ var doc = require('doctor-md');
 
 module.exports = function(grunt, init){
 
+	// ensure these are loaded so it works as standalone
+	grunt.loadNpmTasks('assemble');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+
 	grunt.registerMultiTask('doctor', 'build stuff', function(){
 		var options = this.options(),
 			done = this.async(),
