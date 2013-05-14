@@ -1,7 +1,7 @@
 {
   "name": "grunt-doctor-md",
   "description": "Grunt task for doctor-md",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/DimitarChristoff/grunt-doctor-md",
   "author": {
     "name": "DimitarChristoff",
