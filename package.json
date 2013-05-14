@@ -1,7 +1,7 @@
 {
   "name": "grunt-doctor-md",
   "description": "Grunt task for doctor-md",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/DimitarChristoff/grunt-doctor-md",
   "author": {
     "name": "DimitarChristoff",
@@ -13,16 +13,16 @@
   },
   "main": "Gruntfile.js",
   "engines": {
-    "node": ">= 0.8.0"
+    "node": "~0.8.0"
   },
   "scripts": {
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.1.1",
     "grunt-contrib-clean": "~0.4.0",
     "grunt": "~0.4.1",
-    "assemble": "~0.3.76"
+    "assemble": "~0.3.76",
+    "grunt-contrib-copy": "~0.4.1"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"

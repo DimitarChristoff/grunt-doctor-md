@@ -1,6 +1,6 @@
 /*
  * grunt-doctor
- * https://github.com/dchristoff/grunt-doctor
+ * https://github.com/DimitarChristoff/grunt-doctor-md
  *
  * Copyright (c) 2013 DimitarChristoff
  * Licensed under the MIT license.
@@ -12,18 +12,17 @@ module.exports = function(grunt){
 
 	// Project configuration.
 	grunt.initConfig({
-		// Before generating any new files, remove any previously-created files.
-		clean: {
-			docs: ['<%=output%>']
-		},
 
 		// shared between tasks
 		output: 'docs',
 
+		// Before generating any new files, remove any previously-created files.
+		clean: {
+			doctor: ['<%=output%>']
+		},
+
 		doctor: {
-
 			default_options: {
-
 				options: {
 					source: 'README.md',
 					output: '<%= output%>',
@@ -33,43 +32,52 @@ module.exports = function(grunt){
 					cssIncludes: []
 				},
 				files: {
-					'<%= output%>/index.html': './README.md'
-				}
+					markdown: './README.md'
+				},
+				assemble: {
+					options: {
+						engine: 'handlebars',
+						flatten: false,
+						name: '<%= name %>',
+						jsIncludes: [],
+						cssIncludes: []
+					},
+					doctor: {
+						files: {
+							'<%= output%>/blank.html': 'node_modules/doctor-md/tpl/blank.hbs'
+						}
+					}
+				},
 
-			}
-
-		},
-
-		assemble: {
-			options: {
-				engine: 'handlebars',
-				flatten: false,
-				name: '<%= name %>',
-				jsIncludes: [],
-				cssIncludes: []
-			},
-			doctor: {
-				files: {
-					'docs/js/blank.html': ['node_modules/doctor-md/tpl/blank.hbs']
+				copy: {
+					doctor: {
+						files: [/*{
+						 dest: '<%= output%>/js/make-class/',
+						 src: ['*.js'],
+						 expand: true,
+						 filter: function(name){
+						 return name !== 'Gruntfile.js';
+						 }
+						 }*/]
+					}
 				}
 			}
 		}
-
 	});
 
 	// Actually load this plugin's task(s).
 	grunt.loadTasks('tasks');
 
 	// These plugins provide necessary tasks.
-	// grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('assemble');
 
 	// Whenever the "test" task is run, first clean the "tmp" dir, then run this
 	// plugin's task(s), then test the result.
-	grunt.registerTask('test', ['doctor', 'assemble']);
+	grunt.registerTask('test', ['clean:doctor','doctor']);
 
 	// By default, lint and run all tests.
-	grunt.registerTask('default', ['clean','doctor','assemble']);
+	grunt.registerTask('default', ['doctor']);
 
 };

@@ -12,33 +12,26 @@ var doc = require('doctor-md');
 
 module.exports = function(grunt, init){
 
-	// Please see the Grunt documentation for more information regarding task
-	// creation: http://gruntjs.com/creating-tasks
-
 	grunt.registerMultiTask('doctor', 'build stuff', function(){
-		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options(),
 			done = this.async(),
 			files = this.files;
 
-		// Iterate over all specified file groups.
-		files.forEach(function(f, i){
-			options.source = f.src[0];
-			doc.process(options);
+		options.source = files[0].src[0];
 
-			doc.on('done', function(){
-				if (i === files.length-1){
-					done();
-				}
-			});
+		doc.on('done', done).process(options);
 
-			// Write the destination file.
-			// grunt.file.write(f.dest, src);
+		// when done, run assemble and copy if needed
+		if ('assemble' in this.data){
+			grunt.config.set('assemble', this.data.assemble);
+			grunt.task.run('assemble');
+		}
 
-			// Print a success message.
-			// grunt.log.writeln('File "' + f.dest + '" created.');
-		});
+		if ('copy' in this.data){
+			grunt.config.set('copy', this.data.copy);
+			grunt.task.run('copy:doctor');
+		}
 
-	})
+	});
 
 };
