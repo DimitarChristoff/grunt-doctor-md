@@ -19,6 +19,8 @@ grunt.loadNpmTasks('grunt-doctor-md');
 
 ## The "doctor" task
 
+This is a grunt task interface for [doctor, md](https://github.com/DimitarChristoff/doctor).
+
 ### Overview
 In your project's Gruntfile, add a section named `doctor` to the data object passed into `grunt.initConfig()`.
 
